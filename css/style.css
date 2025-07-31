@@ -1,0 +1,715 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #0a0e27 0%, #16213e 50%, #0a0e27 100%);
+    color: #f8f9fa;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 星空背景 - レイヤー1 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: twinkle 3s infinite, moveStars 120s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* 星空背景 - レイヤー2（異なる速度） */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(1px 1px at 80px 20px, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1.5px 1.5px at 180px 100px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1px 1px at 60px 150px, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(2px 2px at 140px 50px, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1px 1px at 120px 180px, rgba(255, 255, 255, 0.8), transparent);
+    background-repeat: repeat;
+    background-size: 250px 250px;
+    animation: twinkleAlt 4s infinite, moveStarsReverse 180s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.7;
+}
+
+/* 流れ星のアニメーション */
+.shooting-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: linear-gradient(45deg, #fff, transparent);
+    border-radius: 50%;
+    animation: shootingStar 3s linear infinite;
+}
+
+.shooting-star:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 2.5s;
+}
+
+.shooting-star:nth-child(2) {
+    top: 40%;
+    left: 80%;
+    animation-delay: 8s;
+    animation-duration: 3s;
+}
+
+.shooting-star:nth-child(3) {
+    top: 60%;
+    left: 20%;
+    animation-delay: 15s;
+    animation-duration: 2.8s;
+}
+
+/* アニメーション定義 */
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes twinkleAlt {
+    0%, 100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.9;
+    }
+}
+
+@keyframes moveStars {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        transform: translateX(-200px) translateY(-100px);
+    }
+}
+
+@keyframes moveStarsReverse {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        transform: translateX(100px) translateY(-150px);
+    }
+}
+
+@keyframes shootingStar {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(45deg);
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
+    10% {
+        opacity: 1;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+    90% {
+        opacity: 1;
+        transform: translate(200px, 200px) rotate(45deg);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(300px, 300px) rotate(45deg);
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ヘッダー */
+.header {
+    text-align: center;
+    padding: 60px 0;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23001122;stop-opacity:1" /><stop offset="50%" style="stop-color:%23112233;stop-opacity:1" /><stop offset="100%" style="stop-color:%23001122;stop-opacity:1" /></linearGradient></defs><rect width="1200" height="600" fill="url(%23grad1)"/><circle cx="200" cy="100" r="3" fill="white" opacity="0.8"><animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/></circle><circle cx="400" cy="150" r="2" fill="white" opacity="0.6"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite"/></circle><circle cx="600" cy="80" r="2.5" fill="white" opacity="0.9"><animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/></circle><circle cx="800" cy="120" r="2" fill="white" opacity="0.7"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.8s" repeatCount="indefinite"/></circle><circle cx="1000" cy="90" r="3" fill="white" opacity="0.8"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.2s" repeatCount="indefinite"/></circle><circle cx="150" cy="200" r="1.5" fill="white" opacity="0.5"><animate attributeName="opacity" values="0.1;0.6;0.1" dur="3.5s" repeatCount="indefinite"/></circle><circle cx="350" cy="180" r="2" fill="white" opacity="0.6"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.7s" repeatCount="indefinite"/></circle><circle cx="550" cy="220" r="1.8" fill="white" opacity="0.7"><animate attributeName="opacity" values="0.2;0.9;0.2" dur="2.4s" repeatCount="indefinite"/></circle><circle cx="750" cy="190" r="2.2" fill="white" opacity="0.8"><animate attributeName="opacity" values="0.4;1;0.4" dur="2.6s" repeatCount="indefinite"/></circle><circle cx="950" cy="210" r="1.6" fill="white" opacity="0.5"><animate attributeName="opacity" values="0.1;0.7;0.1" dur="3.2s" repeatCount="indefinite"/></circle></svg>');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* 画像アップロード用のプレースホルダー */
+.hero-image-placeholder {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(212, 175, 55, 0.2);
+    border: 2px dashed rgba(212, 175, 55, 0.5);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 0.8rem;
+    color: #d4af37;
+    max-width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-image-placeholder:hover {
+    background: rgba(212, 175, 55, 0.3);
+    border-color: rgba(212, 175, 55, 0.8);
+}
+
+/* 実際の画像用のスタイル */
+.header.with-custom-image {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+        var(--custom-bg-image, url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23001122;stop-opacity:1" /><stop offset="50%" style="stop-color:%23112233;stop-opacity:1" /><stop offset="100%" style="stop-color:%23001122;stop-opacity:1" /></linearGradient></defs><rect width="1200" height="600" fill="url(%23grad1)"/></svg>'));
+}
+
+.couple-names {
+    font-size: 3rem;
+    color: #d4af37;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 300;
+}
+
+.wedding-date {
+    font-size: 1.3rem;
+    color: #e6e6e6;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.welcome-message {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ddd;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* スクロール時のフェードイン制御 */
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* セクション共通スタイル - 枠を完全に除去 */
+.section {
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 40px 20px;
+    margin-bottom: 40px;
+    backdrop-filter: none;
+    box-shadow: none;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+    overflow: visible;
+}
+
+.section::before {
+    display: none;
+}
+
+.section:hover {
+    transform: none;
+    box-shadow: none;
+    background: none;
+}
+
+/* フェードインアニメーション */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-title {
+    font-size: 2rem;
+    color: #d4af37;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+}
+
+/* 式の詳細 */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    perspective: 1000px;
+}
+
+.detail-item {
+    background: rgba(10, 14, 39, 0.6);
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 4px solid #d4af37;
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: visible;
+    backdrop-filter: blur(10px);
+}
+
+.detail-item:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 0 15px rgba(212, 175, 55, 0.2);
+    border-left-color: rgba(212, 175, 55, 1);
+    background: rgba(10, 14, 39, 0.8);
+}
+
+.detail-label {
+    font-size: 0.9rem;
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.detail-value {
+    font-size: 1.1rem;
+    color: #f8f9fa;
+    line-height: 1.5;
+}
+
+/* タイムライン */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #d4af37, rgba(212, 175, 55, 0.3));
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 25px;
+    padding-left: 40px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    background: #d4af37;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.timeline-time {
+    font-weight: bold;
+    color: #d4af37;
+    font-size: 1.1rem;
+}
+
+.timeline-event {
+    color: #ddd;
+    margin-top: 5px;
+}
+
+/* フォトギャラリー */
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+    perspective: 1000px;
+}
+
+.photo-item {
+    position: relative;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #2a3a5a 0%, #3a4a6a 100%);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4af37;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+}
+
+.photo-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 70%),
+        radial-gradient(1px 1px at 30px 20px, rgba(255, 255, 255, 0.2), transparent),
+        radial-gradient(0.5px 0.5px at 60px 45px, rgba(255, 255, 255, 0.15), transparent),
+        radial-gradient(0.8px 0.8px at 20px 60px, rgba(255, 255, 255, 0.25), transparent),
+        radial-gradient(0.3px 0.3px at 80px 30px, rgba(255, 255, 255, 0.3), transparent);
+    background-repeat: repeat;
+    background-size: 120px 120px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: photoStarTwinkle 6s infinite ease-in-out;
+}
+
+.photo-item:hover {
+    transform: translateY(-10px) rotateY(5deg) rotateX(5deg);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(212, 175, 55, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.photo-item:hover::before {
+    opacity: 1;
+    animation-duration: 3s;
+}
+
+@keyframes photoStarTwinkle {
+    0%, 100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.1;
+    }
+}
+
+/* 重要なお知らせ */
+.notice-list {
+    list-style: none;
+}
+
+.notice-list li {
+    background: rgba(10, 14, 39, 0.6);
+    margin-bottom: 20px;
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid #d4af37;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: visible;
+    backdrop-filter: blur(10px);
+}
+
+.notice-list li:hover {
+    transform: translateX(3px) translateY(-1px);
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 0 10px rgba(212, 175, 55, 0.2);
+    border-left-color: rgba(212, 175, 55, 1);
+    background: rgba(10, 14, 39, 0.8);
+}
+
+.notice-title {
+    font-weight: bold;
+    color: #d4af37;
+    margin-bottom: 8px;
+}
+
+/* お問い合わせ */
+.contact-info {
+    text-align: center;
+    padding: 35px;
+    background: rgba(10, 14, 39, 0.6);
+    border-radius: 15px;
+    border: 2px solid rgba(212, 175, 55, 0.4);
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 0 15px rgba(212, 175, 55, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: visible;
+    backdrop-filter: blur(10px);
+}
+
+.contact-info:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 0 20px rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.7);
+    background: rgba(10, 14, 39, 0.8);
+}
+
+.contact-info h3 {
+    color: #d4af37;
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+/* フッター */
+.footer {
+    text-align: center;
+    padding: 40px 0;
+    color: #888;
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out 1.6s forwards;
+}
+
+/* タッチ時の星の光る演出 */
+.touch-star {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #fff 0%, #d4af37 50%, transparent 100%);
+    border-radius: 50%;
+    animation: touchStarBurst 1.5s ease-out forwards;
+}
+
+@keyframes touchStarBurst {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
+    10% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        box-shadow:
+            0 0 20px rgba(255, 255, 255, 0.8),
+            0 0 40px rgba(212, 175, 55, 0.6),
+            0 0 60px rgba(212, 175, 55, 0.4);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(3) rotate(180deg);
+        box-shadow:
+            0 0 30px rgba(255, 255, 255, 0.6),
+            0 0 60px rgba(212, 175, 55, 0.4),
+            0 0 90px rgba(212, 175, 55, 0.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(6) rotate(360deg);
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+/* レスポンシブデザイン - スマホ最適化 */
+@media (max-width: 768px) {
+    .couple-names {
+        font-size: 2.2rem;
+    }
+
+    .section {
+        padding: 25px;
+        margin-bottom: 25px;
+        border-radius: 15px;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .photo-gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .photo-item {
+        aspect-ratio: 16/9;
+        font-size: 1rem;
+    }
+
+    /* スマホでのホバー効果を調整 */
+    .section:hover {
+        transform: translateY(-3px);
+    }
+
+    .detail-item:hover {
+        transform: translateY(-2px) rotateY(2deg);
+    }
+
+    .photo-item:hover {
+        transform: translateY(-5px) rotateY(2deg);
+    }
+
+    /* タッチフィードバック強化 */
+    .section:active {
+        transform: translateY(0px);
+        transition: transform 0.1s ease;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    .couple-names {
+        font-size: 1.8rem;
+    }
+
+    .section {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .header {
+        padding: 40px 20px;
+        min-height: 300px;
+    }
+
+    .welcome-message {
+        font-size: 1rem;
+    }
+
+    .hero-image-placeholder {
+        top: 10px;
+        right: 10px;
+        font-size: 0.7rem;
+        padding: 8px;
+        max-width: 150px;
+    }
+
+    .photo-item {
+        aspect-ratio: 4/3;
+        font-size: 0.9rem;
+    }
+
+    /* スマホでの星のアニメーション軽量化 */
+    body::before,
+    body::after {
+        animation-duration: 200s, 4s;
+    }
+
+    /* 写真背景用のスタイルを追加 */
+.header-with-photo {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
+        url('../images/IMG_4450.JPG');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* テキストの可読性を向上 */
+.header-with-photo .couple-names {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+.header-with-photo .wedding-date {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.header-with-photo .welcome-message {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+}
