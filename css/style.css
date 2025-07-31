@@ -568,6 +568,16 @@ body::after {
     animation: touchStarBurst 1.5s ease-out forwards;
 }
 
+/* 写真背景用のスタイルを追加 */
+.header-with-photo {
+background:
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
+    url('../images/IMG_4450.JPG');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+}
+
 @keyframes touchStarBurst {
     0% {
         opacity: 0;
@@ -686,15 +696,6 @@ body::after {
         animation-duration: 200s, 4s;
     }
 
-    /* 写真背景用のスタイルを追加 */
-.header-with-photo {
-    background:
-        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
-        url('../images/IMG_4450.JPG');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
 
 /* テキストの可読性を向上 */
 .header-with-photo .couple-names {
